@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+    http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+<!--     DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+<!--     Scans within the base package of the application for @Components to configure as beans -->
+<!--     @Controller, @Service, @Configuration, etc. -->
+    
+<!--     <context:component-scan base-package="com.llp.amsws.servlets" /> -->
+    
+<!--     Enables the Spring MVC @Controller programming model -->
+<!--     <mvc:annotation-driven /> -->
+
+  <import resource="storage-config.xml"/>
+  
+  <bean id="planDAO" class="com.llp.amsws.dao.PlanDAO"/>
+  
+  <bean id="addressDAO" class="com.llp.amsws.dao.AddressDAO"/>
+  
+  <bean id="userDAO" class="com.llp.amsws.dao.UserDAO"/>
+  
+  <bean id="accountDAO" class="com.llp.amsws.dao.AccountDAO"/>
+  
+  <bean id="transactionDAO" class="com.llp.amsws.dao.TransactionDAO"/>
+  
+  <bean id="assetDAO" class="com.llp.amsws.dao.AssetDAO"/>
+  
+  <bean id="assetPriceDAO" class="com.llp.amsws.dao.AssetPriceDAO"/>
+  
+  <bean id="assetTypeDAO" class="com.llp.amsws.dao.AssetTypeDAO"/>
+  
+  <bean id="accountSharesHoldingDAO" class="com.llp.amsws.dao.AccountSharesHoldingDAO"/>
+  
+  <bean id="permGroupDAO" class="com.llp.amsws.dao.PermGroupDAO"/>
+  
+  <bean id="accountInfoFactory" class="com.llp.amsws.bo.factory.AccountInfoFactory">
+      <constructor-arg name="accountDAO" ref="accountDAO"/>
+  </bean>
+  
+  <bean id="partnerFactory" class="com.llp.amsws.bo.factory.PartnerFactory">
+      <constructor-arg name="userDAO" ref="userDAO"/>
+  </bean>
+
+
+  <bean id="configurationDAO" class="com.llp.amsws.dao.ConfigurationDAO"/>
+  
+  <bean id="configurationFactory" class="com.llp.amsws.bo.factory.ConfigurationFactory">
+      <constructor-arg name="configurationDAO" ref="configurationDAO"/>
+      <constructor-arg name="planDAO" ref="planDAO"/>
+  </bean>
+  
+  <bean id="transactionInfoFactory" class="com.llp.amsws.bo.factory.TransactionInfoFactory">
+      <constructor-arg name="userDAO" ref="userDAO"/>
+      <constructor-arg name="accountDAO" ref="accountDAO"/>
+      <constructor-arg name="transactionDAO" ref="transactionDAO"/>
+      <constructor-arg name="configurationDAO" ref="configurationDAO"/>
+  </bean>
+  
+   <bean id="assetInfoFactory" class="com.llp.amsws.bo.factory.AssetInfoFactory">
+      <constructor-arg name="assetDAO" ref="assetDAO"/>
+      <constructor-arg name="assetPriceDAO" ref="assetPriceDAO"/>
+      <constructor-arg name="assetTypeDAO" ref="assetTypeDAO"/>
+  </bean>
+  
+   <bean id="groupFactory" class="com.llp.amsws.bo.factory.GroupFactory">
+      <constructor-arg name="permGroupDAO" ref="permGroupDAO"/>
+  </bean>
+</beans>
